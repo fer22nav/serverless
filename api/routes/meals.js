@@ -1,7 +1,7 @@
 const express = require("express");
 const Meals = require("../models/Meals");
 
-const router = app.Router();
+const router = express.Router();
 
 router.get("/", (req, res) => {
   Meals.find()
@@ -19,7 +19,7 @@ router.post("/", (req, res) => {
 });
 
 router.put("/:id", (req, res) => {
-  Meals.findOneAndUpdate(rep.params.id, req.body).then(() =>
+  Meals.findOneAndUpdate(req.params.id, req.body).then(() =>
     res.sendStatus(204)
   );
 });
