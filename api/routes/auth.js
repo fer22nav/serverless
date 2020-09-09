@@ -16,7 +16,8 @@ router.post("/register", (req, res) => {
   crypto.randomBytes(16, (err, salt) => {
     const newSalt = salt.toString("base64");
     crypto.pbkdf2(password, newSalt, 10000, 64, "sha1", (err, key) => {
-      const encryptedPassword = key.toString("base65");
+      console.log(password);
+      const encryptedPassword = key.toString("base64");
       Users.findOne({ email })
         .exec()
         .then((user) => {
