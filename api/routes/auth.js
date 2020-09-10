@@ -16,7 +16,6 @@ router.post("/register", (req, res) => {
   crypto.randomBytes(16, (err, salt) => {
     const newSalt = salt.toString("base64");
     crypto.pbkdf2(password, newSalt, 10000, 64, "sha1", (err, key) => {
-      console.log(password);
       const encryptedPassword = key.toString("base64");
       Users.findOne({ email })
         .exec()
@@ -45,7 +44,7 @@ router.post("/login", (req, res) => {
         return res.send("usuario y/o contraseña incorrecta");
       }
       crypto.pbkdf2(password, user.Salt, 10000, 64, "sha1", (err, key) => {
-        const encryptedPassword = key.toString("base65");
+        const encryptedPassword = key.toString("base64");
         if (user.password === encryptedPassword) {
           const token = signToken(user._id);
           return res.send({ token });
